@@ -1,0 +1,1 @@
+Количество происшествий на дорогах России за 2020 год по официальным данным ГИБДД. Делалось для закрепления блока по D3.js на FreeCodeCamp [GitHub](https://ninelka.github.io/choropleth-map/), [CodePen](https://codepen.io/Ninelka/full/wvgKLwq).
