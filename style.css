@@ -1,0 +1,18 @@
+main {
+	font-family: "Open Sans", sans-serif;
+}
+
+#tooltip {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.8);
+	border-radius: 6px;
+	color: white;
+	padding: 0.5em;
+	opacity: 0;
+}
+
+.map {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
