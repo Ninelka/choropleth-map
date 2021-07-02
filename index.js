@@ -1,8 +1,8 @@
 const accidentData = 'https://raw.githubusercontent.com/Ninelka/choropleth-map/dev/Accidents.csv';
 const countyData = 'https://raw.githubusercontent.com/VitTuWork/vittuwork.github.io/master/choropleth_ap/map/russia.json';
 
-const width = 1290;
-const height = 700;
+const width = 1220;
+const height = 660;
 const padding = 60;
 
 const body = d3.select("section");
@@ -78,13 +78,41 @@ function legend(svg, colorScale, dataRange) {
     return svg;
 }
 
+function responsivefy(svg) {
+    // measure the container and find its aspect ratio
+    const container = d3.select(svg.node().parentNode),
+        width = parseInt(svg.style('width'), 10),
+        height = parseInt(svg.style('height'), 10),
+        aspect = width / height;
+
+    // set viewBox attribute to the initial size
+    // control scaling with preserveAspectRatio
+    // resize svg on inital page load
+    svg.attr('viewBox', `0 0 ${width} ${height}`)
+        .attr('preserveAspectRatio', 'xMinYMid')
+        .call(resize);
+
+    d3.select(window).on(
+        'resize.' + container.attr('id'),
+        resize
+    );
+
+    // resize the chart
+    function resize() {
+        const w = parseInt(container.style('width'));
+        svg.attr('width', w);
+        svg.attr('height', Math.round(w / aspect));
+    }
+}
+
 d3.json(countyData).then(countyData => {
     d3.csv(accidentData).then(accidentData => {
 
         const svg = map
             .append("svg")
             .attr("width", width + padding)
-            .attr("height", height + padding);
+            .attr("height", height + padding)
+            .call(responsivefy);
 
         const dataRange = d3.extent(accidentData, i => +i.CarAccidents);  // с помощью "+" переводим данные в числовой тип для корректного нахождения min и max
 
